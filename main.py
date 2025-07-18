@@ -2,12 +2,11 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-# ✅ Default home route to avoid 405 error
-@app.route("/", methods=["GET"])
+# ✅ Add this route to handle homepage requests
+@app.route("/", methods=["GET", "HEAD"])
 def home():
-    return "✅ Oracle Listener is live and ready!"
+    return "✅ Oracle Listener Running!"
 
-# ✅ Your main TradingView webhook listener
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json()
@@ -15,4 +14,4 @@ def webhook():
     return "✅ Webhook received successfully!"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=7860)
+    app.run(host="0.0.0.0", port=10000)
